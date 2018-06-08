@@ -1,0 +1,11 @@
+.letterTile{
+  width: 60px;
+  height: 60px;
+  background-color: royalblue;
+  font-family: futura;
+  font-size: 50px;
+  font-weight: bold;
+  color: white;
+  text-align: center;
+
+}
