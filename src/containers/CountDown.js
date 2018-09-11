@@ -8,8 +8,8 @@ class CountDown extends Component {
   constructor(props){
     super(props);
     this.state = {
-      consonant: ['b','c','d','f','g','h','j','k','l','m','n','p','q','r','s','t','v','v','w','x','y','z'],
-      vowel: ['a', 'e', 'i', 'o', 'u'],
+      consonant: {'b':2,'c':2,'d':4,'f':2,'g':3,'h':2,'j':1,'k':1,'l':4,'m':2,'n':6,'p':2,'q':1,'r':6,'s':4,'t':6,'v':2,'w':2,'x':1,'y':2,'z':1},
+      vowel: {'a': 9, 'e': 12, 'i': 9, 'o': 8, 'u':4 },
       selectedLetters: [],
       answers: []
     }
@@ -25,11 +25,13 @@ class CountDown extends Component {
 
   letterSelect = (event)=>{
     const letterClass = event.target.value;
-    const selectedArray = this.state[letterClass];
-    const randomIndex = Math.floor(Math.random() * selectedArray.length)
-    const randomLetter = selectedArray[randomIndex];
-    const newSelectedLetters = this.state.selectedLetters.concat([randomLetter]);
-    this.setState({selectedLetters: newSelectedLetters}, () => {
+    const selectedHash = this.state[letterClass]
+    const keys = Object.keys(selectedHash);
+    const randomIndex = Math.floor(Math.random() * keys.length)
+    const randomLetter = keys[randomIndex];
+    selectedHash[randomLetter] -= 1;
+    const selectedLetters = this.state.selectedLetters.concat([randomLetter]);
+    this.setState({selectedLetters, [letterClass]: selectedHash}, () => {
       if (this.state.selectedLetters.length === 9) this.answerFetcher()
     })
   }
